@@ -1,28 +1,3 @@
-//Nav bar function
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-}
-
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft = "0";
-  document.body.style.backgroundColor = "white";
-}
-
-//cursor fade out
-// const cursor = document.querySelector('.blinking-cursor')
-// window.onscroll = function(){fadeCursor()}
-//
-// function fadeCursor() {
-//   if(document.body.scrollTop > 499 || document.documentElement.scrollTop > 499){
-//     cursor.style.display = 'none';
-//   }else{
-//     cursor.style.display = 'block';
-//   }
-// }
-
 //For Sports App
 const getJSON = function (url, errorMsg = "Something went wrong") {
   return fetch(url).then((response) => {
@@ -45,19 +20,19 @@ searchButton.addEventListener("click", function () {
     const renderHtml = function (data) {
       console.log(data);
       let getPlayerPic = function () {
-        return data.player[0].strThumb;
+        return data.strThumb;
       };
-      let playerName = data.player[0].strPlayer;
-      let dateBorn = data.player[0].dateBorn;
-      let nation = data.player[0].strNationality;
-      let gender = data.player[0].strGender;
-      let height = data.player[0].strHeight;
-      let weight = data.player[0].strWeight;
-      let sport = data.player[0].strSport;
+      let playerName = data.strPlayer;
+      let dateBorn = data.dateBorn;
+      let nation = data.strNationality;
+      let gender = data.strGender;
+      let height = data.strHeight;
+      let weight = data.strWeight;
+      let sport = data.strSport;
       let playerBio =
-        data.player[0].strDescriptionEN &&
-        data.player[0].strDescriptionEN.replaceAll("\\r\\n\\r\\n", " ");
-      let wage = data.player[0].strWage;
+        data.strDescriptionEN &&
+        data.strDescriptionEN.replaceAll("\\r\\n\\r\\n", " ");
+      let wage = data.strWage;
 
       const html = `
   <dir class="player-card fade-in">
@@ -91,6 +66,9 @@ searchButton.addEventListener("click", function () {
       playerContainer.insertAdjacentHTML("afterbegin", html);
       playerContainer.style.opacity = 1;
     };
-    renderHtml(data);
+    console.log(data);
+    data.player.map((item) => {
+      renderHtml(item);
+    });
   });
 });
